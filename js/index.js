@@ -1,6 +1,7 @@
 "use strict";
+const cardsContainer = document.getElementById('cards-container');
 
-function createElement(tag, { classNames = [], attributes: {} }, ...children) {
+function createElement(tag, { classNames = [], attributes={} }, ...children) {
   const element = document.createElement(tag);
   if (classNames.lenght) {
     element.classList.add(...classNames);
@@ -18,17 +19,24 @@ fetch("./js/data.json")
       // .filter((actor)=>actor.firstName||actor.profilePicture)
       .map((actor) => createActorsCard(actor));
     cardsContainer.append(...HTMLCollectionActors);
-    
   });
   
   
-
 function createActorsCard(actor) {
-  const { id, firstName } = actor;
+  const { id, firstName, lastName, profilePicture,contacts} = actor;
 
-  const cardName = createElement(
-    "h2",
-    { classNames: ["card-name"] },
-    document.createTextNode(firstName || "Anonim")
-  );
+  const firstNameCard = createElement('h2', {classNames:['first-name']}, document.createTextNode(firstName));
+
+  const lastNameCard = createElement('h2',{classNames:['last-name']},document.createTextNode(lastName));
+
+  const fullNameCard = createElement('div',{classNames:['card-full-name']}, firstNameCard, lastNameCard);
+
+
+  const cardInitials = createElement('div',{classNames:['card-initials']},document.createTextNode(firstName[0]+lastName[0]));
+
+  const cardContainer = createElement('article',{classNames:['card-container']},fullNameCard, cardInitials)
+  
+
 }
+
+
