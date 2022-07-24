@@ -10,6 +10,7 @@ function createElement(tag, { classNames = [], attributes={} }, ...children) {
     element.setAttribute(nameAttribute, valueAttribute);
   }
   element.append(...children);
+  return element;
 }
 
 fetch("./js/data.json")
@@ -36,7 +37,9 @@ function createActorsCard(actor) {
 
   const cardContainer = createElement('article',{classNames:['card-container']},fullNameCard, cardInitials)
   
+  const cardWrapper = createElement('li',{classNames:['card-wrapper']},cardContainer);
 
+  return cardWrapper;
 }
 
 
